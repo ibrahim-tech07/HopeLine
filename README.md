@@ -34,4 +34,4 @@ Hope Line is a web application designed to provide mental health support and eme
 ## Installation and Setup  
 1. Clone the repository:  
    ```bash  
-   git clone https://github.com/Hope-Line/Hope-Line.git
+   git clone https://github.com/Hope-Line/Hope-Line.git](https://github.com/ibrahim-tech07/Hope-Line-.git
