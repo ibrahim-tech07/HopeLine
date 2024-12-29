@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+# Ignore sensitive files
+*.env
+application.properties
+
+# Ignore directories
+/node_modules/
+/dist/
+
+# Ignore specific file types
+*.log
+*.tmp
+
+# Ignore system files
+.DS_Store
+Thumbs.db
