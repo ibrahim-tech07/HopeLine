@@ -38,12 +38,11 @@ public class AdminService {
         return therapistService.getAllTherapists();
     }
 
-    // Get all blogs
     public List<Blog> getAllBlogs() {
         return blogRepository.findAll();
     }
 
-    // Get all emergency contacts
+
     public List<EmergencyContact> getAllEmergencyContacts() {
         return emergencyContactRepository.findAll();
     }

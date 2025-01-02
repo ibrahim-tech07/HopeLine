@@ -22,6 +22,7 @@ const SOSButton = () => {
   const handleClickOpen = () => {
     if (!email || role === "THERAPIST") {
       navigate("/403");
+      return;
     }
     setOpen(true);
   };
@@ -42,31 +43,23 @@ const SOSButton = () => {
 
     try {
       const response = await API.post("/user/api/send-sos", sosData);
-      toast.success("SOS message sent successfully.", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-        style: {
-          fontSize: "14px",
-        },
-      });
+      if (response.status === 200) {
+        toast.success("SOS message sent successfully.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else {
+        toast.error(response.data || "Failed to send SOS message.", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
     } catch (error) {
-      toast.error("Error sending SOS message.", {
+      toast.error("An error occurred while sending SOS message.", {
         position: "bottom-right",
         autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-        style: {
-          fontSize: "14px",
-        },
       });
+      console.log(error);
     } finally {
       setIsSendingSOS(false);
     }
@@ -82,14 +75,19 @@ const SOSButton = () => {
           const { latitude, longitude } = position.coords;
           sendSOSRequest(latitude, longitude);
         },
-        (error) => {
-          console.error("Geolocation error:", error);
-          alert("Unable to fetch location.");
+        () => {
+          toast.error("Failed to retrieve location.", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
           setIsSendingSOS(false);
         }
       );
     } else {
-      alert("Geolocation is not supported by this browser.");
+      toast.error("Geolocation is not supported by this browser.", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
       setIsSendingSOS(false);
     }
   };
@@ -101,7 +99,7 @@ const SOSButton = () => {
       </h1>
       <div className="w-[40%] h-[90%] p-4 mb-4 flex items-center justify-center bg-white drop-shadow-md">
         <div className="relative flex items-center justify-center group">
-          <div className="absolute w-[400px] h-[400px] rounded-full bg-[#FCC7CF] opacity-50 animate-pulse group-hover:scale-110 transition-transform duration-300"></div>
+          <div className="absolute w-[400px] h-[400px] rounded-full bg-[#FCC7CF] opacity-50 animate-pulse group-hover:scale-110 transition-transform duration-300 shadow-xl "></div>
 
           <div className="absolute w-[300px] h-[300px] rounded-full bg-[#FD778A] opacity-75 group-hover:scale-125 transition-transform duration-300"></div>
 
